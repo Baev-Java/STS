@@ -90,7 +90,7 @@ public class ChatActivity extends AppCompatActivity {
             for(DocumentChange documentChange : value.getDocumentChanges()){
                 if(documentChange.getType() == DocumentChange.Type.ADDED){
                     ChatMessage chatMessage = new ChatMessage();
-                    chatMessage.senderId = documentChange.getDocument().getString(Constants.KEY_USER_ID);
+                    chatMessage.senderId = documentChange.getDocument().getString(Constants.KEY_SENDER_ID);
                     chatMessage.receiverId = documentChange.getDocument().getString(Constants.KEY_RECEIVER_ID);
                     chatMessage.message = documentChange.getDocument().getString(Constants.KEY_MESSAGE);
                     chatMessage.dataTime = getReadableDateTime(documentChange.getDocument().getDate(Constants.KEY_TIMESTAMP));
