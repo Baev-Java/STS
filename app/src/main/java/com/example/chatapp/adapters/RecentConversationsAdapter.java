@@ -2,7 +2,6 @@ package com.example.chatapp.adapters;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Message;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -11,7 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatapp.databinding.ItemContainerRecentConversionBinding;
+import com.example.chatapp.listeners.ConversionListener;
 import com.example.chatapp.models.ChatMessage;
+import com.example.chatapp.models.User;
 
 import java.util.List;
 
@@ -19,9 +20,11 @@ import java.util.List;
 public class RecentConversationsAdapter extends RecyclerView.Adapter<RecentConversationsAdapter.ConversionViewHolder>{// это активность недавних диалогов
 
     private final List<ChatMessage> chatMessages;
+    private final ConversionListener conversionListener;
 
-    public RecentConversationsAdapter(List<ChatMessage> chatMessages) {
+    public RecentConversationsAdapter(List<ChatMessage> chatMessages, ConversionListener conversionListener) {
         this.chatMessages = chatMessages;
+        this.conversionListener = conversionListener;
     }
 
     @NonNull
@@ -60,6 +63,13 @@ public class RecentConversationsAdapter extends RecyclerView.Adapter<RecentConve
             binding.imageProfile.setImageBitmap(getConversionImage(chatMessage.conversionImage));
             binding.textName.setText(chatMessage.conversionName);
             binding.textRecentMessage.setText(chatMessage.message);
+            binding.getRoot().setOnClickListener(v ->{
+                User user = new User();
+                user.id = chatMessage.conversionId;
+                user.name = chatMessage.conversionName;
+                user.image = chatMessage.conversionImage;
+                conversionListener.onConversionListenerClicked(user);
+            });
         }
 
     }
