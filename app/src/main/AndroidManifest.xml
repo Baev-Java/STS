@@ -6,8 +6,8 @@
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@mipmap/ic_logoo"
+        android:label="eSpeak"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatApp">
         <activity

@@ -16,7 +16,7 @@ import com.example.chatapp.models.User;
 import java.util.List;
 
 
-public class UsersAdapter extends  RecyclerView.Adapter<UsersAdapter.UserViewHolder>{
+public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHolder> {
 
     private final List<User> users;
     private final UserListener userListener;
@@ -47,26 +47,26 @@ public class UsersAdapter extends  RecyclerView.Adapter<UsersAdapter.UserViewHol
         return users.size();
     }
 
-    class UserViewHolder extends RecyclerView.ViewHolder{
+    private Bitmap getUserImage(String encodeImage) {
+        byte[] bytes = Base64.decode(encodeImage, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+    }
+
+    class UserViewHolder extends RecyclerView.ViewHolder {
 
         ItemContainerUserBinding binding;
 
-        UserViewHolder(ItemContainerUserBinding itemContainerUserBinding){
+        UserViewHolder(ItemContainerUserBinding itemContainerUserBinding) {
             super(itemContainerUserBinding.getRoot());
             binding = itemContainerUserBinding;
         }
 
-        void setUserData(User user){
+        void setUserData(User user) {
             binding.textName.setText(user.name);
             binding.textEmail.setText(user.email);
             binding.imageProfile.setImageBitmap(getUserImage(user.image));
             binding.getRoot().setOnClickListener(v -> userListener.onUserClicked(user));
         }
-    }
-
-    private Bitmap getUserImage(String encodeImage){
-        byte[] bytes = Base64.decode(encodeImage, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-
     }
 }
